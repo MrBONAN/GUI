@@ -20,9 +20,16 @@ public:
 
 	void Event(const sf::Vector2i& msCord) override;
 	void Show() override;
+
+	void SetIMG_dxy(int dx = 15, int dy = 15);
+	void SetIMG_xy1(int x = 1, int y = 1);
+	void SetIMG_xy2(int x = 1, int y = 16);
 private:
 	sf::Sprite sprite;
 	float dx = 15, dy = 15;
+	int ImageDx = 15, ImageDy = 15;
+	int X1 = 1, Y1 = 1;
+	int X2 = 1, Y2 = 16;
 	bool active = false;
 };
 

@@ -29,26 +29,25 @@ void CheckBox::SetScale(float scX, float scY)
 
 void CheckBox::Set_Sprite1()
 {
-	this->sprite.setTextureRect(sf::IntRect(1, 1, 15, 15)); // переделать на изменяемые координаты
+	this->sprite.setTextureRect(sf::IntRect(X1, Y1, ImageDx, ImageDy)); // переделать на изменяемые координаты
 }
 
 void CheckBox::Set_Sprite2()
 {
-	this->sprite.setTextureRect(sf::IntRect(1, 16, 15, 15)); // переделать на изменяемые координаты
+	this->sprite.setTextureRect(sf::IntRect(X2, Y2, ImageDx, ImageDy)); // переделать на изменяемые координаты
 }
 
 void CheckBox::Event(const sf::Vector2i& msCord)
 {
 	//std::cout << '\t' << this->sprite.getPosition().x << '\t' << this->sprite.getPosition().y << std::endl;
 	if (this->sprite.getGlobalBounds().contains(msCord.x, msCord.y)) {
-		if (this->active == false)
+		this->active = !this->active;
+		if (this->active == true)
 		{
 			Set_Sprite2();
-			this->active = true;
 		}
 		else {
 			Set_Sprite1();
-			this->active = false;
 		}
 		std::cout << this->active << std::endl;
 	}
@@ -57,4 +56,21 @@ void CheckBox::Event(const sf::Vector2i& msCord)
 void CheckBox::Show()
 {
 	this->window->draw(this->sprite);
+}
+
+void CheckBox::SetIMG_dxy(int dx, int dy) {
+	ImageDx = dx;
+	ImageDy = dy;
+}
+
+void CheckBox::SetIMG_xy1(int x, int y)
+{
+	X1 = x;
+	Y1 = y;
+}
+
+void CheckBox::SetIMG_xy2(int x, int y)
+{
+	X2 = x;
+	Y2 = y;
 }
