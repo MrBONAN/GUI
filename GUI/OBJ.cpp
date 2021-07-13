@@ -4,11 +4,11 @@ sf::RenderWindow* OBJ::DefWindow = nullptr;
 sf::Texture* OBJ::DefTexture = nullptr;
 vector<OBJ*> OBJ::allTypeObj;
 
-void OBJ::Init(sf::RenderWindow& window, string path)
+void OBJ::Init(sf::RenderWindow& window, string TexPath)
 {
 	OBJ::DefWindow = &window;
 	OBJ::DefTexture = new sf::Texture;
-	OBJ::DefTexture->loadFromFile(path);
+	OBJ::DefTexture->loadFromFile(TexPath);
 }
 OBJ::OBJ()
 {
@@ -67,6 +67,14 @@ void OBJ::CheckAllEvent(const sf::Vector2i& msCord)
 	for (auto obj : OBJ::allTypeObj)
 	{
 		obj->Event(msCord);
+	}
+}
+
+void OBJ::CheckAllFocus(const sf::Vector2i& msCord)
+{
+	for (auto it : allTypeObj)
+	{
+		it->CheckFocus(msCord);
 	}
 }
 

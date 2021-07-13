@@ -2,7 +2,7 @@
 
 CheckBox::CheckBox()
 {
-	this->sprite.setTexture(this->texture);
+	sprite.setTexture(texture);
 
 	Set_Sprite1();
 	//Set_Sprite2();
@@ -10,52 +10,52 @@ CheckBox::CheckBox()
 
 void CheckBox::SetPos(int x, int y)
 {
-	this->sprite.setPosition(sf::Vector2f(x, y));
+	sprite.setPosition(sf::Vector2f(x, y));
 }
 
 void CheckBox::SetDxDy(int dx, int dy)
 {
-	this->sprite.scale(sf::Vector2f(dx / this->dx, dy / this->dy));
+	sprite.scale(sf::Vector2f(dx / this->dx, dy / this->dy));
 	this->dx = dx;
 	this->dy = dy;
 }
 
 void CheckBox::SetScale(float scX, float scY)
 {
-	this->sprite.scale(sf::Vector2f(scX, scY));
-	this->dx *= scX;
-	this->dy *= scY;
+	sprite.scale(sf::Vector2f(scX, scY));
+	dx *= scX;
+	dy *= scY;
 }
 
 void CheckBox::Set_Sprite1()
 {
-	this->sprite.setTextureRect(sf::IntRect(X1, Y1, ImageDx, ImageDy)); // переделать на изменяемые координаты
+	sprite.setTextureRect(sf::IntRect(X1, Y1, ImageDx, ImageDy));
 }
 
 void CheckBox::Set_Sprite2()
 {
-	this->sprite.setTextureRect(sf::IntRect(X2, Y2, ImageDx, ImageDy)); // переделать на изменяемые координаты
+	sprite.setTextureRect(sf::IntRect(X2, Y2, ImageDx, ImageDy));
 }
 
 void CheckBox::Event(const sf::Vector2i& msCord)
 {
 	//std::cout << '\t' << this->sprite.getPosition().x << '\t' << this->sprite.getPosition().y << std::endl;
-	if (this->sprite.getGlobalBounds().contains(msCord.x, msCord.y)) {
-		this->active = !this->active;
-		if (this->active == true)
+	if (sprite.getGlobalBounds().contains(msCord.x, msCord.y)) {
+		active = !this->active;
+		if (active == true)
 		{
 			Set_Sprite2();
 		}
 		else {
 			Set_Sprite1();
 		}
-		std::cout << this->active << std::endl;
+		std::cout << active << std::endl;
 	}
 }
 
 void CheckBox::Show()
 {
-	this->window->draw(this->sprite);
+	this->window->draw(sprite);
 }
 
 void CheckBox::SetIMG_dxy(int dx, int dy) {

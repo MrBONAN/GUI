@@ -8,6 +8,11 @@
 
 using std::string;
 using std::vector;
+using std::max;
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 class OBJ
 {
@@ -31,7 +36,9 @@ public:
 
 	virtual void Event(const sf::Vector2i& msCord) = 0; // метод проверки на взаимодействие
 	static void CheckAllEvent(const sf::Vector2i& msCord);
-	
+	virtual void CheckFocus(const sf::Vector2i& msCord) = 0;
+	static void CheckAllFocus(const sf::Vector2i& msCord);
+
 	virtual void Show() = 0; // Метод отрисовки объекта
 	static void ShowAll();
 

@@ -1,10 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "CheckBox.h"
-
-using std::cout;
-using std::cin;
-using std::endl;
+#include "Button.h"
 
 int main()
 {
@@ -31,16 +28,18 @@ int main()
 
     CheckBox::Init(window, path);
 
-    CheckBox btn;
-    CheckBox bt;
+    CheckBox CHCKbtn;
     
     //btn.SetWindow(window);
     //btn.SetTexture(path);
-    btn.SetPos(100, 100);
-    btn.SetScale(10, 10);
 
-    bt.SetPos(50, 50);
-    bt.SetScale(2, 4);
+    CHCKbtn.SetPos(50, 50);
+    CHCKbtn.SetScale(4, 4);
+
+    Button::Init(window, path);
+    Button btn(2);
+    btn.SetPos(200, 200);
+    btn.SetScale(4, 4);
 
     bool msPress = false;
 
@@ -80,8 +79,8 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-            
             msPress = true;
+            Button::CheckAllFocus(sf::Mouse::getPosition(window));
         }
         else if (msPress){
             msPress = false;
@@ -91,6 +90,7 @@ int main()
         window.clear();
 
         CheckBox::ShowAll();
+        Button::ShowAll();
 
         window.draw(sprite);
         window.display();
