@@ -3,6 +3,11 @@
 #include "CheckBox.h"
 #include "Button.h"
 
+void print()
+{
+    cout << "It's work!" << endl;
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 450), "SFML works!");
@@ -10,36 +15,21 @@ int main()
 
     window.setFramerateLimit(60);
 
-    //Button btn(window, 10, 10, 90, 120);
-    //btn.SetColor(sf::Color(100, 100, 100));
-
-    sf::Texture texture;
-    sf::Sprite sprite;
-
     string path = "Icons.png";
 
-    texture.loadFromFile(path);
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(1, 16, 15, 15));
-    sprite.setScale(sf::Vector2f(10, 1));
-
-    //OBJ::SetDef_Window(window);
-    //OBJ::SetDef_Texture(path);
-
-    CheckBox::Init(window, path);
+    OBJ::Init(window, path);
 
     CheckBox CHCKbtn;
-    
-    //btn.SetWindow(window);
-    //btn.SetTexture(path);
 
     CHCKbtn.SetPos(50, 50);
     CHCKbtn.SetScale(4, 4);
 
-    Button::Init(window, path);
-    Button btn(2);
+    Button btn(15);
     btn.SetPos(200, 200);
-    btn.SetScale(4, 4);
+    btn.SetScale(2, 2);
+    btn.SetFunc(print);
+    btn.SetBtnImage();
+    btn.SetImageScale(2, 2);
 
     bool msPress = false;
 
@@ -54,45 +44,22 @@ int main()
             if (event.type == sf::Event::KeyReleased)
                 std::cout << event.key.code << std::endl;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-            sprite.setTextureRect(sf::IntRect(1, 1, 15, 15));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-            sprite.setTextureRect(sf::IntRect(1, 16, 15, 15));
-        }
 
-        //cout << endl << sf::Mouse::getPosition(window).x << '\t' << sf::Mouse::getPosition(window).y;
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        {
-            
-           /* int msX = sf::Mouse::getPosition().x - window.getPosition().x - 7;
-            int msY = sf::Mouse::getPosition().y - window.getPosition().y;*/
-            int msX = sf::Mouse::getPosition(window).x;
-            int msY = sf::Mouse::getPosition(window).y;
-            if (sprite.getGlobalBounds().contains(msX, msY)) cout << 1;
-            /*cout << "\t\t" <<  window.mapPixelToCoords(sf::Mouse::getPosition(window)).x << '\t' << window.mapPixelToCoords(sf::Mouse::getPosition(window)).y << endl;
-            
-            btn.MousePres(msX, msY);*/
-            
-        }
+        
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             msPress = true;
-            Button::CheckAllFocus(sf::Mouse::getPosition(window));
+            OBJ::CheckAllFocus(sf::Mouse::getPosition(window));
         }
         else if (msPress){
             msPress = false;
-            CheckBox::CheckAllEvent(sf::Mouse::getPosition(window));
+            OBJ::CheckAllEvent(sf::Mouse::getPosition(window));
         }
 
         window.clear();
 
-        CheckBox::ShowAll();
-        Button::ShowAll();
+        OBJ::ShowAll();
 
-        window.draw(sprite);
         window.display();
     }
 
