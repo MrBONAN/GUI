@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "CheckBox.h"
 #include "Button.h"
+#include "TextRect.h"
 
 void print()
 {
@@ -30,6 +31,9 @@ int main()
     btn.SetFunc(print);
     btn.SetBtnImage();
     btn.SetImageScale(2, 2);
+    
+    TextRect rct;
+    rct.SetString();
 
     bool msPress = false;
 
