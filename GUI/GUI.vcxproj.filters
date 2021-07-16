@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="GUI.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -47,5 +44,10 @@
     <ClInclude Include="TextRect.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -24,9 +24,15 @@ void TextRect::SetString()
 	text.setCharacterSize(size);
 	text.setStyle(sf::Text::Bold);
 	text.setFillColor(sf::Color::Red);
+}
 
-	rect.setFillColor(sf::Color(77, 77, 77));
+TextRect::TextRect()
+{
+	font.loadFromFile("arial.ttf");
 	rect.setSize(sf::Vector2f(dx, dy));
+	rect.setFillColor(sf::Color(170, 170, 170, 255));
+	rect.setOutlineThickness(2);
+	rect.setOutlineColor(sf::Color(50, 50, 50, 255));
 }
 
 void TextRect::SetPos(int x, int y)
@@ -35,6 +41,20 @@ void TextRect::SetPos(int x, int y)
 	this->y = y;
 	rect.setPosition(sf::Vector2f(x, y));
 	text.setPosition(sf::Vector2f(x + 5, y + 5));
+}
+
+void TextRect::SetDxDy(int dx, int dy)
+{
+	this->dx = dx;
+	this->dy = dy;
+	rect.setSize(sf::Vector2f(dx, dy));
+}
+
+void TextRect::SetScale(float scX, float scY)
+{
+	dx *= scX;
+	dy *= scY;
+	rect.setScale(scX, scY);
 }
 
 void TextRect::Show()

@@ -33,6 +33,10 @@ int main()
     btn.SetImageScale(2, 2);
     
     TextRect rct;
+
+    rct.SetDxDy(100, 60);
+    rct.SetPos(300, 100);
+    rct.SetScale(5, 5);
     rct.SetString();
 
     bool msPress = false;
