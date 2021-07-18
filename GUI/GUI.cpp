@@ -34,10 +34,11 @@ int main()
     
     TextRect rct;
 
-    rct.SetDxDy(100, 60);
+    //rct.SetDxDy(100, 60);
     rct.SetPos(300, 100);
-    rct.SetScale(5, 5);
-    rct.SetString();
+    //rct.text.setCharacterSize(48);
+    rct.SetTextString("Test: ");
+    rct.SetTextData(10);
 
     bool msPress = false;
 

@@ -11,25 +11,26 @@ public:
 	void Event(const sf::Vector2i& msCord) override {};
 	void CheckFocus(const sf::Vector2i& msCord) override {};
 
-	void SetText(int data, string str, int dx, int dy);
-
-	void SetText(int data, int dx, int dy);
+	void SetTextString(string str);
+	void SetTextData(int data);
+	void SetFont(string font);
 
 	void SetRectColor(sf::Color color) { rect.setFillColor(color); }
 	void SetOutlineColor(sf::Color color) { rect.setOutlineColor(color); }
 	void SetOutlineThickness(float d) { rect.setOutlineThickness(d); }
 
-	void SetString();
-
 	void Show() override;
 
 	~TextRect() {};
+
+	sf::Text text;
 private:
 	int x, y;
 	int dx = 100, dy = 30;
-	int size = 24;
-	sf::Text text;
 	sf::Font font;
+	//sf::Text::Style style = sf::Text::Style::Regular;
+	//sf::Color color = sf::Color::Black;
+
 	sf::RectangleShape rect;
-	string str = "Test ", data = "5";
+	string str = "None", data = "";
 };
