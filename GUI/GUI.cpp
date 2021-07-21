@@ -4,6 +4,8 @@
 #include "Button.h"
 #include "TextRect.h"
 
+using namespace sf;
+
 void print()
 {
     cout << "It's work!" << endl;
@@ -13,24 +15,28 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 450), "SFML works!");
     sf::Event event;
-
+        
     window.setFramerateLimit(60);
 
-    string path = "Icons.png";
+    string path = "icons.png";
 
-    OBJ::Init(window, path);
+    OBJ::Init(window, path, 500, 500);
 
     CheckBox CHCKbtn;
 
     CHCKbtn.SetPos(50, 50);
     CHCKbtn.SetScale(4, 4);
 
-    Button btn(15);
-    btn.SetPos(200, 200);
+    Button btn(45, 45);
+    btn.SetPos(300, 250);
+    //btn.SetScale(4, 4);
+    //btn.SetPos(200, 200);
     btn.SetScale(2, 2);
     btn.SetFunc(print);
-    btn.SetBtnImage();
+    btn.SetImageBtn();
     btn.SetImageScale(2, 2);
+    btn.SetScale(2, 2);
+    btn.SetPos(500, 200);
     
     TextRect rct;
 
@@ -40,8 +46,16 @@ int main()
     rct.SetTextString("Test: ");
     rct.SetTextData(10);
 
-    bool msPress = false;
+    sf::RenderTexture rt;
+    rt.create(10, 10);
 
+    Sprite sp;
+    Texture tx;
+    tx.loadFromFile("Icons.png");
+    sp.setTexture(tx);
+
+    bool msPress = false;
+    int l;
     while (window.isOpen())
     {
         while (window.pollEvent(event))
@@ -53,8 +67,6 @@ int main()
             if (event.type == sf::Event::KeyReleased)
                 std::cout << event.key.code << std::endl;
         }
-
-        
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             msPress = true;
@@ -68,6 +80,13 @@ int main()
         window.clear();
 
         OBJ::ShowAll();
+
+       /* sp.setPosition({ 0, 0 });
+        window.draw(sp);
+        sp.rotate(180);
+        sp.setPosition({ 100, 200 });
+        window.draw(sp);
+        sp.rotate(180);*/
 
         window.display();
     }

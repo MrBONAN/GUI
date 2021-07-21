@@ -2,13 +2,22 @@
 
 sf::RenderWindow* OBJ::DefWindow = nullptr;
 sf::Texture* OBJ::DefTexture = nullptr;
+sf::RenderTexture OBJ::RenderTex;
 vector<OBJ*> OBJ::allTypeObj;
 
-void OBJ::Init(sf::RenderWindow& window, string TexPath)
+void OBJ::Init(sf::RenderWindow& window, string TexPath, int dxRenderTex, int dyRenderTex)
 {
 	OBJ::DefWindow = &window;
 	OBJ::DefTexture = new sf::Texture;
 	OBJ::DefTexture->loadFromFile(TexPath);
+	if (dxRenderTex > 0 && dyRenderTex > 0)
+	{
+		OBJ::RenderTex.create(dxRenderTex, dyRenderTex);
+	}
+	else
+	{
+		OBJ::RenderTex.create(window.getSize().x, window.getSize().y);
+	}
 }
 OBJ::OBJ()
 {

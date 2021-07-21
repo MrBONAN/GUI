@@ -18,7 +18,7 @@ using std::endl;
 class OBJ
 {
 public:
-	static void Init(sf::RenderWindow& window, string path = "Icons.png"); //вызвать перед началом
+	static void Init(sf::RenderWindow& window, string TexPath = "Icons.png", int dxRenderTex = 0, int dyRenderTex = 0); //вызвать перед началом
 	OBJ(); // конструктор по умолчанию
 	
 	virtual void SetPos(int x, int y) = 0; // сохранение позиции объекта
@@ -26,27 +26,29 @@ public:
 	virtual void SetScale(float scX, float scY) = 0; // сохранение размера объекта
 	
 	void SetWindow(sf::RenderWindow& window); // сохранение рабочего окна (по уполчанию оно у всех объектов одно)
-	sf::RenderWindow& GetWindow();
-	static void SetDef_Window(sf::RenderWindow& window); // сохранение рабочего окна для всех новых последующих объектов
-	static sf::RenderWindow& GetDef_Window();
+	sf::RenderWindow& GetWindow(); // получение окна отрисовки объекта
+	static void SetDef_Window(sf::RenderWindow& window); // сохранение рабочего окна для всех наследников OBJ
+	static sf::RenderWindow& GetDef_Window(); // получение окна по умолчанию для всех наследников OBJ
 
 	void SetTexture(string path); // сохранение рабочей текстуры (по умполчанию она у всех объектов одна)
-	sf::Texture& GetTexture();
-	static void SetDef_Texture(string path); // изменение рабочей текстуры для всех новых последующих объектов
-	static sf::Texture& GetDef_Texture();
+	sf::Texture& GetTexture(); // рабочая текстура
+	static void SetDef_Texture(string path); // изменение текстуры по умолчанию для всех наследников OBJ
+	static sf::Texture& GetDef_Texture(); // получение текстуры по умолчанию всех наследников OBJ
 
 	virtual void Event(const sf::Vector2i& msCord) = 0; // метод проверки на взаимодействие
-	static void CheckAllEvent(const sf::Vector2i& msCord);
-	virtual void CheckFocus(const sf::Vector2i& msCord) = 0;
-	static void CheckAllFocus(const sf::Vector2i& msCord);
+	static void CheckAllEvent(const sf::Vector2i& msCord); // метод проверки на взаимодействие всех наследников OBJ
+	virtual void CheckFocus(const sf::Vector2i& msCord) = 0; // метод проверки на наведение (при нажатии лкм)
+	static void CheckAllFocus(const sf::Vector2i& msCord); // метод провекри на наведение всех наследников OBJ
 
-	virtual void Show() = 0; // Метод отрисовки объекта
-	static void ShowAll();
+	virtual void Show() = 0; // метод отрисовки объекта
+	static void ShowAll(); // метод отрисовки всех наследников OBJ
 
-	static vector<OBJ*> allTypeObj;
+	static vector<OBJ*> allTypeObj; // вектор всех наследников OBJ
 protected:
-	sf::RenderWindow* window;
+	sf::RenderWindow* window; 
 	sf::Texture texture;
+	static sf::RenderTexture RenderTex;
+	sf::Texture texEnd;
 
 	static sf::RenderWindow* DefWindow;
 	static sf::Texture* DefTexture;
