@@ -11,9 +11,11 @@ Button::Button(int width, int hight)
 	corner.setTexture(texture);
 	top.setTexture(texture);
 	LeftRight.setTexture(texture);
+	LineUpDw.setTexture(texture);
 
-	top.scale(sf::Vector2f(lenTop / ImageDxTop, dy / ImageDy));
+	top.scale(sf::Vector2f(lenTop / ImageDxTop, (dy - ImageDxCorner * 2) / (ImageDy - ImageDxCorner * 2)));
 	LeftRight.scale(sf::Vector2f(1, lenLR / ImageDyLR));
+	LineUpDw.scale(sf::Vector2f(lenTop / ImageDxTop, 1));
 
 	RenderTex.clear(sf::Color(0, 0, 0, 0));
 
@@ -136,8 +138,7 @@ void Button::SetImageScale(float scX, float scY)
 void Button::SetImagePos()
 {
 	image.setPosition(button.getPosition().x + (dx * button.getScale().x - ImageBtnDx) / 2,
-		              button.getPosition().y + (dy * button.getScale().y - ImageBtnDy) / 2);
-
+		button.getPosition().y + (dy * button.getScale().y - ImageBtnDy) / 2);
 }
 
 
@@ -152,15 +153,17 @@ void Button::Show()
 void Button::SetTemplates1()
 {
 	corner.setTextureRect(sf::IntRect(X1, Y1, ImageDxCorner, ImageDxCorner));
-	top.setTextureRect(sf::IntRect(X1 + ImageDxCorner, Y1, ImageDxTop, ImageDy));
+	top.setTextureRect(sf::IntRect(X1 + ImageDxCorner, Y1 + ImageDxCorner, ImageDxTop, ImageDy - ImageDxCorner * 2));
 	LeftRight.setTextureRect(sf::IntRect(X1, Y1 + ImageDxCorner, ImageDxCorner, ImageDy - 2 * ImageDxCorner));
+	LineUpDw.setTextureRect(sf::IntRect(X1 + ImageDxCorner, Y1, ImageDxTop, ImageDxCorner));
 }
 
 void Button::SetTemplates2()
 {
 	corner.setTextureRect(sf::IntRect(X2, Y2, ImageDxCorner, ImageDxCorner));
-	top.setTextureRect(sf::IntRect(X2 + ImageDxCorner, Y2, ImageDxTop, ImageDy));
+	top.setTextureRect(sf::IntRect(X2 + ImageDxCorner, Y2 + ImageDxCorner, ImageDxTop, ImageDy - ImageDxCorner * 2));
 	LeftRight.setTextureRect(sf::IntRect(X2, Y2 + ImageDxCorner, ImageDxCorner, ImageDy - 2 * ImageDxCorner));
+	LineUpDw.setTextureRect(sf::IntRect(X2 + ImageDxCorner, Y2, ImageDxTop, ImageDxCorner));
 }
 
 void Button::SetRenderTexture(int y)
@@ -168,36 +171,40 @@ void Button::SetRenderTexture(int y)
 
 	corner.setPosition(sf::Vector2f(0, y));
 	RenderTex.draw(corner);
-
 	corner.rotate(90);
 
 	corner.setPosition(sf::Vector2f(lenCornerX * 2 + lenTop, y));
 	RenderTex.draw(corner);
-
 	corner.rotate(90);
 
 	corner.setPosition(sf::Vector2f(lenCornerX * 2 + lenTop, lenCornerY * 2 + lenLR + y));
 	RenderTex.draw(corner);
-
 	corner.rotate(90);
 
 	corner.setPosition(sf::Vector2f(0, lenCornerY * 2 + lenLR + y));
 	RenderTex.draw(corner);
-
 	corner.rotate(90);
 
-	top.setPosition(sf::Vector2f(lenCornerX, y));
+
+	top.setPosition(sf::Vector2f(lenCornerX, y + lenCornerY));
 	RenderTex.draw(top);
+
 
 	LeftRight.setPosition(sf::Vector2f(0, lenCornerY + y));
 	RenderTex.draw(LeftRight);
-
 	LeftRight.rotate(180);
 
 	LeftRight.setPosition(sf::Vector2f(lenCornerX * 2 + lenTop, lenCornerY + lenLR + y));
 	RenderTex.draw(LeftRight);
-
 	LeftRight.rotate(180);
+
+	LineUpDw.setPosition(sf::Vector2f(lenCornerX, y));
+	RenderTex.draw(LineUpDw);
+	LineUpDw.rotate(180);
+
+	LineUpDw.setPosition(sf::Vector2f(lenCornerX + lenTop, y + lenCornerY * 2 + lenLR));
+	RenderTex.draw(LineUpDw);
+	LineUpDw.rotate(180);
 
 	RenderTex.display();
 }

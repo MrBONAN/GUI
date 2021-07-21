@@ -27,8 +27,8 @@ int main()
     CHCKbtn.SetPos(50, 50);
     CHCKbtn.SetScale(4, 4);
 
-    Button btn(45, 45);
-    btn.SetPos(300, 250);
+    Button btn(45, 90);
+    btn.SetPos(300, 100);
     //btn.SetScale(4, 4);
     //btn.SetPos(200, 200);
     btn.SetScale(2, 2);
@@ -36,7 +36,7 @@ int main()
     btn.SetImageBtn();
     btn.SetImageScale(2, 2);
     btn.SetScale(2, 2);
-    btn.SetPos(500, 200);
+    btn.SetPos(500, 0);
     
     TextRect rct;
 
