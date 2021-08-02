@@ -24,19 +24,16 @@ int main()
 
     CheckBox CHCKbtn;
 
-    CHCKbtn.SetPos(50, 50);
+    CHCKbtn.SetPos(20, 20);
     CHCKbtn.SetScale(4, 4);
 
-    Button btn(45, 90);
-    btn.SetPos(300, 100);
-    //btn.SetScale(4, 4);
-    //btn.SetPos(200, 200);
-    btn.SetScale(2, 2);
+    Button btn(30, 30);
+    btn.SetScale(4, 4);
     btn.SetFunc(print);
-    btn.SetImageBtn();
-    btn.SetImageScale(2, 2);
+    //btn.SetImageBtn();
+    //btn.SetImageScale(2, 2);
     btn.SetScale(2, 2);
-    btn.SetPos(500, 0);
+    btn.SetPos(300, 0);
     
     TextRect rct;
 

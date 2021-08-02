@@ -5,29 +5,15 @@ Button::Button(int width, int hight)
 	dx = max(width, 4);
 	dy = max(hight, 4);
 
-	lenTop = dx - 2 * lenCornerX;
-	lenLR = dy - 2 * lenCornerY;
+	//auto start = std::chrono::system_clock::now();
+	ImageRect TempImageRect(dx, dy, RenderTex, texture);
+	//auto end = std::chrono::system_clock::now();
+	//std::chrono::duration<double> dir = end - start;
+	//cout << dir.count() << endl;
 
-	corner.setTexture(texture);
-	top.setTexture(texture);
-	LeftRight.setTexture(texture);
-	LineUpDw.setTexture(texture);
-
-	top.scale(sf::Vector2f(lenTop / ImageDxTop, (dy - ImageDxCorner * 2) / (ImageDy - ImageDxCorner * 2)));
-	LeftRight.scale(sf::Vector2f(1, lenLR / ImageDyLR));
-	LineUpDw.scale(sf::Vector2f(lenTop / ImageDxTop, 1));
-
-	RenderTex.clear(sf::Color(0, 0, 0, 0));
-
-	SetTemplates1();
-	SetRenderTexture(0);
-	SetTemplates2();
-	SetRenderTexture(dy);
 	texEnd = RenderTex.getTexture();
 	button.setTexture(texEnd);
 	button.setTextureRect(sf::IntRect(0, 0, dx, dy));
-
-
 
 	Set_Sprite1();
 
@@ -40,31 +26,15 @@ void Button::SetPos(int x, int y)
 	if (HaveImage) SetImagePos();
 }
 
-//void Button::SetDxDy(int dx, int dy)
-//{
-//	float xScale = dx / this->dx;
-//	float yScale = dy / this->dy;
-//	left.scale(sf::Vector2f(xScale, yScale));
-//	top.scale(sf::Vector2f(xScale, yScale));
-//	right.scale(sf::Vector2f(xScale, yScale));
-//
-//	if (xScale >= 1) {
-//		top.setPosition(lenLR * xScale + top.getPosition().x, top.getPosition().y);
-//		right.setPosition(lenLR * xScale + lenTop * xScale + right.getPosition().x, right.getPosition().y);
-//	}
-//	else {
-//		top.setPosition( top.getPosition().x - lenLR * xScale, top.getPosition().y);
-//		right.setPosition(right.getPosition().x - lenLR * xScale - lenTop * xScale, right.getPosition().y);
-//	}
-//	dx *= xScale;
-//	dy *= yScale;
-//
-//	lenLR *= xScale;
-//	lenTop *= xScale;
-//
-//	SetPos(left.getPosition().x, left.getPosition().y);
-//}
-//
+void Button::SetDxDy(int dx, int dy)
+{
+	this->dx = dx;
+	this->dy = dy;
+
+	ImageRect TempImageRect(dx, dy, RenderTex, texture);
+
+}
+
 void Button::SetScale(float scX, float scY)
 {
 	if (HaveImage) SetImageScale(scX, scY);
@@ -147,64 +117,4 @@ void Button::Show()
 {
 	window->draw(button);
 	if (HaveImage) window->draw(image);
-}
-
-
-void Button::SetTemplates1()
-{
-	corner.setTextureRect(sf::IntRect(X1, Y1, ImageDxCorner, ImageDxCorner));
-	top.setTextureRect(sf::IntRect(X1 + ImageDxCorner, Y1 + ImageDxCorner, ImageDxTop, ImageDy - ImageDxCorner * 2));
-	LeftRight.setTextureRect(sf::IntRect(X1, Y1 + ImageDxCorner, ImageDxCorner, ImageDy - 2 * ImageDxCorner));
-	LineUpDw.setTextureRect(sf::IntRect(X1 + ImageDxCorner, Y1, ImageDxTop, ImageDxCorner));
-}
-
-void Button::SetTemplates2()
-{
-	corner.setTextureRect(sf::IntRect(X2, Y2, ImageDxCorner, ImageDxCorner));
-	top.setTextureRect(sf::IntRect(X2 + ImageDxCorner, Y2 + ImageDxCorner, ImageDxTop, ImageDy - ImageDxCorner * 2));
-	LeftRight.setTextureRect(sf::IntRect(X2, Y2 + ImageDxCorner, ImageDxCorner, ImageDy - 2 * ImageDxCorner));
-	LineUpDw.setTextureRect(sf::IntRect(X2 + ImageDxCorner, Y2, ImageDxTop, ImageDxCorner));
-}
-
-void Button::SetRenderTexture(int y)
-{
-
-	corner.setPosition(sf::Vector2f(0, y));
-	RenderTex.draw(corner);
-	corner.rotate(90);
-
-	corner.setPosition(sf::Vector2f(lenCornerX * 2 + lenTop, y));
-	RenderTex.draw(corner);
-	corner.rotate(90);
-
-	corner.setPosition(sf::Vector2f(lenCornerX * 2 + lenTop, lenCornerY * 2 + lenLR + y));
-	RenderTex.draw(corner);
-	corner.rotate(90);
-
-	corner.setPosition(sf::Vector2f(0, lenCornerY * 2 + lenLR + y));
-	RenderTex.draw(corner);
-	corner.rotate(90);
-
-
-	top.setPosition(sf::Vector2f(lenCornerX, y + lenCornerY));
-	RenderTex.draw(top);
-
-
-	LeftRight.setPosition(sf::Vector2f(0, lenCornerY + y));
-	RenderTex.draw(LeftRight);
-	LeftRight.rotate(180);
-
-	LeftRight.setPosition(sf::Vector2f(lenCornerX * 2 + lenTop, lenCornerY + lenLR + y));
-	RenderTex.draw(LeftRight);
-	LeftRight.rotate(180);
-
-	LineUpDw.setPosition(sf::Vector2f(lenCornerX, y));
-	RenderTex.draw(LineUpDw);
-	LineUpDw.rotate(180);
-
-	LineUpDw.setPosition(sf::Vector2f(lenCornerX + lenTop, y + lenCornerY * 2 + lenLR));
-	RenderTex.draw(LineUpDw);
-	LineUpDw.rotate(180);
-
-	RenderTex.display();
 }
