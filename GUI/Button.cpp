@@ -67,9 +67,20 @@ void Button::Event(const sf::Vector2i& msCord)
 		Set_Sprite1();
 		active = !active;
 		if (HaveFunc) EventBtn();
+		if (HaveMutImage)
+		{
+			if (mutActive)
+			{
+				image.setTextureRect(sf::IntRect(X1, Y1, constImageBtnDx, constImageBtnDy));
+			}
+			else
+			{
+				image.setTextureRect(sf::IntRect(X2, Y2, constImageBtnDx, constImageBtnDy));
+			}
+			mutActive = !mutActive;
+		}
 	}
 }
-
 
 void Button::CheckFocus(const sf::Vector2i& msCord)
 {
@@ -90,9 +101,27 @@ void Button::CheckFocus(const sf::Vector2i& msCord)
 void Button::SetImageBtn(int x, int y, int dx, int dy)
 {
 	HaveImage = true;
+	ImageBtnDx = dx;
+	ImageBtnDy = dy;
 	image.setTexture(texture);
-	image.setTextureRect(sf::IntRect(x, y, dx, dy));
+	image.setTextureRect(sf::IntRect(x, y, constImageBtnDx, constImageBtnDy));
 	SetImagePos();
+}
+
+void Button::SetMutImageBtn(int X1, int Y1, int X2, int Y2, int dx, int dy)
+{
+	this->X1 = X1;
+	this->Y1 = Y1;
+	this->X2 = X2;
+	this->Y2 = Y2;
+	ImageBtnDx = dx;
+	ImageBtnDy = dy;
+
+	image.setTexture(texture);
+	image.setTextureRect(sf::IntRect(X1, Y1, constImageBtnDx, constImageBtnDy));
+
+	HaveImage = true;
+	HaveMutImage = true;
 }
 
 void Button::SetImageScale(float scX, float scY)

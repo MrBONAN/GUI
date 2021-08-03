@@ -18,9 +18,11 @@ public:
 
 	void SetFunc(void (*EventBtn)());
 	void Event(const sf::Vector2i& msCord) override;
+
 	void CheckFocus(const sf::Vector2i& msCord) override;
 
 	void SetImageBtn(int x = 33, int y = 17, int dx = 15, int dy = 15);
+	void SetMutImageBtn(int X1 = 33, int Y1 = 1, int X2 = 33, int Y2 = 17, int dx = 15, int dy = 15);
 	void SetImageScale(float scX, float scY);
 	void SetImagePos();
 
@@ -29,10 +31,16 @@ public:
 	~Button() {};
 
 	bool active = false;
+	bool mutActive = false;
 private:
 	sf::Sprite image, button;
+
 	float ImageBtnDx = 15, ImageBtnDy = 15;
+	float constImageBtnDx = 15, constImageBtnDy = 15;
 	bool HaveImage = false;
+	
+	bool HaveMutImage = false;
+	int X1, Y1, X2, Y2;
 
 	float dx = 45, dy = 15; // длина кнопки по умолчанию
 

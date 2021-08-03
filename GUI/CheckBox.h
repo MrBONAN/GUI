@@ -1,10 +1,7 @@
 #ifndef _CHECK_BOX_H_
 #define _CHECK_BOX_H_
 
-//#include <SFML/Graphics.hpp>
-//#include <iostream>
-
-#include "OBJ.h" // все нужные библиотеки уже подключены
+#include "OBJ.h"
 
 class CheckBox : public OBJ
 {

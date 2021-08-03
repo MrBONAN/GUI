@@ -5,7 +5,6 @@ CheckBox::CheckBox()
 	sprite.setTexture(texture);
 
 	Set_Sprite1();
-	//Set_Sprite2();
 }
 
 void CheckBox::SetPos(int x, int y)

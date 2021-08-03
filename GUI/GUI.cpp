@@ -28,9 +28,9 @@ int main()
     CHCKbtn.SetScale(4, 4);
 
     Button btn(30, 30);
-    btn.SetScale(4, 4);
+    //btn.SetScale(4, 4);
     btn.SetFunc(print);
-    //btn.SetImageBtn();
+    btn.SetMutImageBtn();
     //btn.SetImageScale(2, 2);
     btn.SetScale(2, 2);
     btn.SetPos(300, 0);
