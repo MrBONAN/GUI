@@ -5,15 +5,15 @@ Button::Button(int width, int hight)
 	dx = max(width, 4);
 	dy = max(hight, 4);
 
-	//auto start = std::chrono::system_clock::now();
+	/*auto start = std::chrono::system_clock::now();*/
+	RenderTex.create(dx, dy * 2);
 	ImageRect TempImageRect(dx, dy, RenderTex, texture);
-	//auto end = std::chrono::system_clock::now();
-	//std::chrono::duration<double> dir = end - start;
-	//cout << dir.count() << endl;
+	/*auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> dir = end - start;
+	cout << dir.count() << endl;*/
 
 	texEnd = RenderTex.getTexture();
 	button.setTexture(texEnd);
-	button.setTextureRect(sf::IntRect(0, 0, dx, dy));
 
 	Set_Sprite1();
 
@@ -31,8 +31,13 @@ void Button::SetDxDy(int dx, int dy)
 	this->dx = dx;
 	this->dy = dy;
 
+	RenderTex.create(dx, dy * 2);
 	ImageRect TempImageRect(dx, dy, RenderTex, texture);
 
+	texEnd = RenderTex.getTexture();
+	button.setTexture(texEnd);
+
+	Set_Sprite1();
 }
 
 void Button::SetScale(float scX, float scY)
@@ -54,7 +59,7 @@ void Button::Set_Sprite2()
 	button.setTextureRect(sf::IntRect(0, dy, dx, dy));
 }
 
-void Button::SetFunc(void(*EventBtn)())
+void Button::SetFunc(function<void(void)> EventBtn)
 {
 	this->EventBtn = EventBtn;
 	HaveFunc = true;

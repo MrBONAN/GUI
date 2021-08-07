@@ -2,12 +2,8 @@
 
 
 
-ImageRect::ImageRect(int dx, int dy, sf::RenderTexture& RenderTex, sf::Texture& texture)
+ImageRect::ImageRect(int dx, int dy, sf::RenderTexture& RenderTex, sf::Texture& texture) : ImageRect::ImageRect(dx,dy)
 {
-
-	lenTop = dx - 2 * lenCornerX;
-	lenLR = dy - 2 * lenCornerY;
-
 	corner.setTexture(texture);
 	top.setTexture(texture);
 	LeftRight.setTexture(texture);
@@ -27,7 +23,10 @@ ImageRect::ImageRect(int dx, int dy, sf::RenderTexture& RenderTex, sf::Texture& 
 	SetRenderTexture(dy);
 }
 
-ImageRect::ImageRect(int dx, int dy) : dx(dx), dy(dy) {}
+ImageRect::ImageRect(int dx, int dy) : dx(dx), dy(dy) {
+	lenTop = dx - 2 * lenCornerX;
+	lenLR = dy - 2 * lenCornerY;
+}
 
 void ImageRect::SetTemplCords(int X1, int Y1, int X2, int Y2, sf::RenderTexture& RenderTex, sf::Texture& texture)
 {
@@ -36,9 +35,6 @@ void ImageRect::SetTemplCords(int X1, int Y1, int X2, int Y2, sf::RenderTexture&
 	this->X2 = X2;
 	this->Y2 = Y2;
 
-	lenTop = dx - 2 * lenCornerX;
-	lenLR = dy - 2 * lenCornerY;
-
 	corner.setTexture(texture);
 	top.setTexture(texture);
 	LeftRight.setTexture(texture);
@@ -58,6 +54,30 @@ void ImageRect::SetTemplCords(int X1, int Y1, int X2, int Y2, sf::RenderTexture&
 	SetRenderTexture(dy);
 }
 
+void ImageRect::SetTemplCords(int X1, int Y1, sf::RenderTexture& RenderTex, sf::Texture& texture)
+{
+	this->X1 = X1;
+	this->Y1 = Y1;
+
+	corner.setTexture(texture);
+	top.setTexture(texture);
+	LeftRight.setTexture(texture);
+	LineUpDw.setTexture(texture);
+
+	top.scale(sf::Vector2f(lenTop / ImageDxTop, (dy - lenCornerY * 2) / (ImageDy - ImageDxCorner * 2)));
+	LeftRight.scale(sf::Vector2f(1, lenLR / ImageDyLR));
+	LineUpDw.scale(sf::Vector2f(lenTop / ImageDxTop, 1));
+
+	this->RenderTex = &RenderTex;
+
+	RenderTex.clear(sf::Color(0, 0, 0, 0));
+
+	SetTemplates1();
+	SetRenderTexture(0);
+}
+
+
+// сделать через define func
 void ImageRect::SetTemplates1()
 {
 	corner.setTextureRect(sf::IntRect(X1, Y1, ImageDxCorner, ImageDxCorner));

@@ -3,6 +3,9 @@
 
 #include "OBJ.h"
 #include "ImageRect.h"
+#include <functional>
+
+using std::function;
 
 class Button : public OBJ
 {
@@ -16,11 +19,11 @@ public:
 	void Set_Sprite1();
 	void Set_Sprite2();
 
-	void SetFunc(void (*EventBtn)());
+	void SetFunc(function<void(void)> EventBtn);
 	void Event(const sf::Vector2i& msCord) override;
 
 	void CheckFocus(const sf::Vector2i& msCord) override;
-
+	
 	void SetImageBtn(int x = 33, int y = 17, int dx = 15, int dy = 15);
 	void SetMutImageBtn(int X1 = 33, int Y1 = 1, int X2 = 33, int Y2 = 17, int dx = 15, int dy = 15);
 	void SetImageScale(float scX, float scY);
@@ -29,10 +32,10 @@ public:
 	void Show() override;
 
 	~Button() {};
-
-	bool active = false;
 	bool mutActive = false;
 private:
+	bool active = false;
+
 	sf::Sprite image, button;
 
 	float ImageBtnDx = 15, ImageBtnDy = 15;
@@ -45,6 +48,7 @@ private:
 	float dx = 45, dy = 15; // длина кнопки по умолчанию
 
 	bool HaveFunc = false;
-	void (*EventBtn)();
+	//void (*EventBtn)();
+	function<void(void)> EventBtn;
 };
 #endif

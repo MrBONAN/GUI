@@ -5,7 +5,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <chrono>
+#include <thread>
+#include <algorithm>
 
 using std::string;
 using std::to_string;
@@ -15,11 +16,12 @@ using std::max;
 using std::cout;
 using std::cin;
 using std::endl;
+//using namespace std;
 
 class OBJ
 {
 public:
-	static void Init(sf::RenderWindow& window, string TexPath = "Icons.png", int dxRenderTex = 0, int dyRenderTex = 0); //вызвать перед началом
+	static void Init(sf::RenderWindow& window, string TexPath = "Icons.png"); //вызвать перед началом
 	OBJ(); // конструктор по умолчанию
 	
 	virtual void SetPos(int x, int y) = 0; // сохранение позиции объекта
@@ -44,8 +46,11 @@ public:
 	virtual void Show() = 0; // метод отрисовки объекта
 	static void ShowAll(); // метод отрисовки всех наследников OBJ
 
-	static vector<OBJ*> allTypeObj; // вектор всех наследников OBJ
 protected:
+	static vector<OBJ*> allTypeObj; // вектор всех наследников OBJ
+	static sf::Vector2i PastMsCord; // сохранение прошлых координат мыши
+	static bool mouseJustPressed;
+
 	sf::RenderWindow* window; 
 	sf::Texture texture;
 	static sf::RenderTexture RenderTex;
