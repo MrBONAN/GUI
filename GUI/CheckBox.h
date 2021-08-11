@@ -16,15 +16,15 @@ public:
 	void Set_Sprite2();
 
 	void Event(const sf::Vector2i& msCord) override;
-	void CheckFocus(const sf::Vector2i& msCord) override {};
+	void CheckFocus(const sf::Vector2i& msCord) override;
 	void Show() override;
 
 	void SetIMG_dxy(int dx = 15, int dy = 15);
 	void SetIMG_xy1(int x = 1, int y = 1);
 	void SetIMG_xy2(int x = 1, int y = 16);
 
-	bool active = false;
 private:
+	bool active = false, state = false;
 	sf::Sprite sprite;
 	float dx = 15, dy = 15;
 	int ImageDx = 15, ImageDy = 15;

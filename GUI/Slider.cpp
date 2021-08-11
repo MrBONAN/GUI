@@ -89,7 +89,6 @@ void Slider::CheckFocus(const sf::Vector2i& msCord)
 			value += minValue;
 		}
 	}
-	// для последующих тактов сообщаем, что это не первый такт
 
 
 }

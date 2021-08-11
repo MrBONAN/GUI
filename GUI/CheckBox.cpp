@@ -39,16 +39,26 @@ void CheckBox::Set_Sprite2()
 void CheckBox::Event(const sf::Vector2i& msCord)
 {
 	//std::cout << '\t' << this->sprite.getPosition().x << '\t' << this->sprite.getPosition().y << std::endl;
-	if (sprite.getGlobalBounds().contains(msCord.x, msCord.y)) {
-		active = !this->active;
-		if (active == true)
+	if (active && sprite.getGlobalBounds().contains(msCord.x, msCord.y)) {
+		active = false;
+		state = !state;
+		if (state == true)
 		{
 			Set_Sprite2();
 		}
 		else {
 			Set_Sprite1();
 		}
-		std::cout << active << std::endl;
+		std::cout << state << std::endl;
+	}
+}
+
+void CheckBox::CheckFocus(const sf::Vector2i& msCord)
+{
+	// создать отдельный метод для первого if в родительском классе OBJ
+	if (mouseJustPressed && sprite.getGlobalBounds().contains(msCord.x, msCord.y))
+	{
+		active = true;
 	}
 }
 

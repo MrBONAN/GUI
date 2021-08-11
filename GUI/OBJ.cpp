@@ -1,7 +1,7 @@
 #include "OBJ.h"
 
 sf::Vector2i OBJ::PastMsCord = sf::Vector2i(0, 0);
-bool OBJ::mouseJustPressed = false;
+bool OBJ::mouseJustPressed = true;
 
 sf::RenderWindow* OBJ::DefWindow = nullptr;
 sf::Texture* OBJ::DefTexture = nullptr;
@@ -72,12 +72,12 @@ void OBJ::CheckAllEvent(const sf::Vector2i& msCord)
 	{
 		obj->Event(msCord);
 	}
-	mouseJustPressed = false;
+	mouseJustPressed = true;
 }
 
 void OBJ::CheckAllFocus(const sf::Vector2i& msCord)
 {
-	if (!mouseJustPressed || msCord != PastMsCord)
+	if (mouseJustPressed || msCord != PastMsCord)
 	{
 		cout << "CHECKFOCUS" << endl;
 		PastMsCord = msCord;
@@ -85,7 +85,7 @@ void OBJ::CheckAllFocus(const sf::Vector2i& msCord)
 		{
 			it->CheckFocus(msCord);
 		}
-		mouseJustPressed = true;
+		mouseJustPressed = false;
 	}
 }
 

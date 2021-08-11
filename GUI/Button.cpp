@@ -67,10 +67,9 @@ void Button::SetFunc(function<void(void)> EventBtn)
 
 void Button::Event(const sf::Vector2i& msCord)
 {
-	if (active)
+	if (active && button.getGlobalBounds().contains(msCord.x, msCord.y))
 	{
 		Set_Sprite1();
-		active = !active;
 		if (HaveFunc) EventBtn();
 		if (HaveMutImage)
 		{
@@ -85,19 +84,18 @@ void Button::Event(const sf::Vector2i& msCord)
 			mutActive = !mutActive;
 		}
 	}
+	active = false;
 }
 
 void Button::CheckFocus(const sf::Vector2i& msCord)
 {
-	if (button.getGlobalBounds().contains(msCord.x, msCord.y)) {
+	if ((mouseJustPressed || active ) && button.getGlobalBounds().contains(msCord.x, msCord.y)) {
 		if (active) return;
 		active = true;
 		Set_Sprite2();
-	}
-	else if (active)
+	} else if (active)
 	{
 		Set_Sprite1();
-		active = false;
 	}
 }
 
