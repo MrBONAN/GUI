@@ -32,9 +32,8 @@ public:
 	void Show() override;
 
 	~Button() {};
-	bool mutActive = false;
 private:
-	bool active = false;
+	bool active = false, state = false;
 
 	sf::Sprite image, button;
 

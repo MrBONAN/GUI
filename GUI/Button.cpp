@@ -73,7 +73,7 @@ void Button::Event(const sf::Vector2i& msCord)
 		if (HaveFunc) EventBtn();
 		if (HaveMutImage)
 		{
-			if (mutActive)
+			if (state)
 			{
 				image.setTextureRect(sf::IntRect(X1, Y1, constImageBtnDx, constImageBtnDy));
 			}
@@ -81,7 +81,7 @@ void Button::Event(const sf::Vector2i& msCord)
 			{
 				image.setTextureRect(sf::IntRect(X2, Y2, constImageBtnDx, constImageBtnDy));
 			}
-			mutActive = !mutActive;
+			state = !state;
 		}
 	}
 	active = false;
