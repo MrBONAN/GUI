@@ -70,6 +70,18 @@ void Slider::Event(const sf::Vector2i& msCord)
 	}
 }
 
+void Slider::SetValue(int val)
+{
+	value = max(min(val, maxValue), minValue);
+	MoveSlider();
+}
+
+void Slider::AddValue(int addVal)
+{
+	value = max(min(value + addVal, maxValue), minValue);
+	MoveSlider();
+}
+
 
 void Slider::CheckFocus(const sf::Vector2i& msCord)
 {
@@ -85,8 +97,7 @@ void Slider::CheckFocus(const sf::Vector2i& msCord)
 
 		if (value != temp) {
 			value = temp;
-			slider.setPosition(x + indent + value * sizeOneDivis, ySlider);
-			value += minValue;
+			MoveSlider();
 		}
 	}
 
@@ -101,7 +112,9 @@ void Slider::Show()
 
 void Slider::MoveSlider()
 {
-
+	slider.setPosition(x + indent + value * sizeOneDivis, ySlider);
+	value += minValue;
+	UseFunc();
 }
 
 void Slider::Set_Sprite1()

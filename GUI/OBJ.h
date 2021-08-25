@@ -7,11 +7,13 @@
 #include <vector>
 #include <thread>
 #include <algorithm>
+#include <functional>
 
 using std::string;
 using std::to_string;
 using std::vector;
 using std::max;
+using std::function;
 
 using std::cout;
 using std::cin;
@@ -42,6 +44,10 @@ public:
 	static void CheckAllEvent(const sf::Vector2i& msCord); // метод проверки на взаимодействие всех наследников OBJ
 	virtual void CheckFocus(const sf::Vector2i& msCord) = 0; // метод проверки на наведение (при нажатии лкм)
 	static void CheckAllFocus(const sf::Vector2i& msCord); // метод провекри на наведение всех наследников OBJ
+	
+	// сохранение и использование функции, которая будет активироваться во время события
+	void SetFunc(function<void()> func) { eventFunc = func; HaveFunc = true; }
+	void UseFunc() { if (HaveFunc) eventFunc(); }
 
 	virtual void Show() = 0; // метод отрисовки объекта
 	static void ShowAll(); // метод отрисовки всех наследников OBJ
@@ -58,6 +64,9 @@ protected:
 
 	static sf::RenderWindow* DefWindow;
 	static sf::Texture* DefTexture;
+
+	function<void()> eventFunc;
+	bool HaveFunc = false;
 };
 
 #endif

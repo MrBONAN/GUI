@@ -59,18 +59,19 @@ void Button::Set_Sprite2()
 	button.setTextureRect(sf::IntRect(0, dy, dx, dy));
 }
 
-void Button::SetFunc(function<void(void)> EventBtn)
-{
-	this->EventBtn = EventBtn;
-	HaveFunc = true;
-}
+//void Button::SetFunc(function<void(void)> EventBtn)
+//{
+//	this->EventBtn = EventBtn;
+//	HaveFunc = true;
+//}
 
 void Button::Event(const sf::Vector2i& msCord)
 {
 	if (active && button.getGlobalBounds().contains(msCord.x, msCord.y))
 	{
+		isAlreadyUpdate = false;
 		Set_Sprite1();
-		if (HaveFunc) EventBtn();
+		UseFunc();
 		if (HaveMutImage)
 		{
 			if (state)
@@ -90,12 +91,16 @@ void Button::Event(const sf::Vector2i& msCord)
 void Button::CheckFocus(const sf::Vector2i& msCord)
 {
 	if ((mouseJustPressed || active ) && button.getGlobalBounds().contains(msCord.x, msCord.y)) {
-		if (active) return;
+		if (isAlreadyUpdate) return;
+		isAlreadyUpdate = true;
 		active = true;
 		Set_Sprite2();
 	} else if (active)
 	{
-		Set_Sprite1();
+		if (isAlreadyUpdate) {
+			isAlreadyUpdate = false;
+			Set_Sprite1();
+		}
 	}
 }
 

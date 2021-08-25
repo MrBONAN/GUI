@@ -15,6 +15,8 @@ public:
 
 	void Event(const sf::Vector2i& msCord) override;
 	int GetValue() { return value; }
+	void SetValue(int val);
+	void AddValue(int addVal);
 
 	void CheckFocus(const sf::Vector2i& msCord) override;
 

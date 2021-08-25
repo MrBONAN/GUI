@@ -19,7 +19,6 @@ public:
 	void Set_Sprite1();
 	void Set_Sprite2();
 
-	void SetFunc(function<void(void)> EventBtn);
 	void Event(const sf::Vector2i& msCord) override;
 
 	void CheckFocus(const sf::Vector2i& msCord) override;
@@ -33,7 +32,13 @@ public:
 
 	~Button() {};
 private:
-	bool active = false, state = false;
+	bool active = false;          // если на кнопку нажали в первый тик, то она активируется
+	bool state = false;           //  состояние активации кнопки (для изменчивых изображений)
+	bool isAlreadyUpdate = false; // для проверки на то, отрисовали ли мы уже текущую картинку кнопки
+	// сделать в будущем проверку: если мы уже активировали объект (любой),
+	// то не проверять остальные объекты + можно сделать так, чтобы в последующих
+	// проверках фокуса мы проверяли только тот единственный объект (для оптимизации)
+
 
 	sf::Sprite image, button;
 
@@ -46,8 +51,7 @@ private:
 
 	float dx = 45, dy = 15; // длина кнопки по умолчанию
 
-	bool HaveFunc = false;
 	//void (*EventBtn)();
-	function<void(void)> EventBtn;
+	//function<void(void)> EventBtn;
 };
 #endif

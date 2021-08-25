@@ -19,7 +19,7 @@ int main()
 
     OBJ::Init(window, path);
 
-    CheckBox CHCKbtn;
+    CheckBox CHCKbtn(45) ;
 
     CHCKbtn.SetPos(20, 20);
     CHCKbtn.SetScale(4, 4);
@@ -41,10 +41,14 @@ int main()
     rct.SetTextData(10);
     rct.SetDxDy(300, 30);
 
-    Slider sl(270, -100, 100);
+    Slider sl(270, 0, 50);
+    sl.SetValue(49);
     sl.SetPos(100, 400);
     sl.SetScale(2, 2);
     //sl.SetScale(0.5, 0.5);
+   /* sl.SetFunc(std::bind(&OBJ::UseFunc, rct));*/ // не работает, фиг знает почему
+    sl.SetFunc([&]() {rct.SetTextData(sl.GetValue()); });
+    rct.SetFunc(print);
 
     /*sf::RenderTexture rt;
     rt.create(10, 10);
@@ -68,7 +72,7 @@ int main()
             if (event.type == sf::Event::KeyReleased)
                 std::cout << event.key.code << std::endl;
         }
-        rct.SetTextData(sl.GetValue());
+        //rct.SetTextData(sl.GetValue());
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             msPress = true;
             OBJ::CheckAllFocus(sf::Mouse::getPosition(window));
